@@ -14,7 +14,8 @@ public class Greeting {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    @Override
+    public String toString() {
+        return "{" + "\"id\" :\"" + id + "\"," + "\"content\" :\"" + content + "\"}";
     }
 }

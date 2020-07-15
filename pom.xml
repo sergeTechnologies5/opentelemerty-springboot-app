@@ -79,7 +79,6 @@
             <artifactId>grpc-netty</artifactId>
             <version>1.27.2</version>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>

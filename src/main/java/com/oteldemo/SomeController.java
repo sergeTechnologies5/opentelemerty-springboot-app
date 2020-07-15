@@ -21,11 +21,13 @@ public class SomeController {
     @RequestMapping("/api/1")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "level1Default") String name) {
         Span span = tracer.spanBuilder("api/1").startSpan();
-        span.addEvent("Controller Entered");
+        span.addEvent(name);
         span.setAttribute("counter.id", counter.get());
         try (Scope scope = tracer.withSpan(span)) {
-
-            return new Greeting(counter.incrementAndGet(), getContent());
+            Greeting greeting = new Greeting(counter.incrementAndGet(), getContent());
+            span.addEvent(greeting.toString());
+            span.setAttribute("counter.id", greeting.getId());
+            return greeting ;
         } catch (Exception e) {
             span.addEvent("error");
             span.setAttribute("error", true);
