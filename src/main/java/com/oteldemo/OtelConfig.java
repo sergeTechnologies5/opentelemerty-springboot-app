@@ -21,7 +21,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 public class OtelConfig {
 
     @Bean
-    public Tracer otelTracer() throws Exception{
+    public Tracer tracer() {
         final Tracer tracer = OpenTelemetry.getTracerFactory().get("com.forrest.levelone");
         SpanProcessor jaegerProcessor =
                 SimpleSpansProcessor.newBuilder(JaegerGrpcSpanExporter.newBuilder()
@@ -34,7 +34,6 @@ public class OtelConfig {
 
         OpenTelemetrySdk.getTracerFactory().addSpanProcessor(logProcessor);
         OpenTelemetrySdk.getTracerFactory().addSpanProcessor(jaegerProcessor);
-
         return tracer;
     }
 }
